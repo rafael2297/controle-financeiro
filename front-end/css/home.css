@@ -1,0 +1,86 @@
+@import url("./styles.css");
+
+/* ====== CONTAINER PRINCIPAL ====== */
+#main-app {
+    background: #fffef8;
+    border: 2px solid black;
+    border-radius: 12px;
+    box-shadow: 4px 4px 0px black;
+}
+
+/* ====== CABEÇALHO ====== */
+header h1 {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+header p {
+    color: #4b5563;
+    /* cinza */
+    font-size: 1rem;
+}
+
+/* ====== SEÇÃO DE SALDO ====== */
+#saldo-atual {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #2563eb;
+    /* azul forte */
+    margin-top: 0.5rem;
+}
+
+/* ====== MODAL DE SALDO ====== */
+.modal-overlay {
+    display: none;
+    /* escondido por padrão */
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 50;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Ativo quando necessário */
+.modal-overlay.flex {
+    display: flex;
+}
+
+/* Card do modal */
+.modal-card {
+    background: #ffffff;
+    border: 2px solid black;
+    border-radius: 12px;
+    padding: 1.5rem;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 4px 4px 0px black;
+    text-align: center;
+}
+
+/* Input do modal */
+.modal-card input {
+    border: 2px solid black;
+    border-radius: 8px;
+    padding: 0.5rem;
+    font-size: 1rem;
+    width: 100%;
+}
+
+/* Botão dentro do modal */
+.modal-card button {
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    font-weight: bold;
+    border-radius: 8px;
+    border: 2px solid black;
+    box-shadow: 2px 2px 0px black;
+    background: #facc15;
+    /* amarelo */
+    transition: transform 0.2s ease;
+}
+
+.modal-card button:hover {
+    transform: scale(1.05);
+    background: #fde047;
+}

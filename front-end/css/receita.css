@@ -1,0 +1,62 @@
+@import url("./styles.css");
+
+/* Estilo para a página de Despesas */
+#main-app {
+    background: #fffef8;
+    border: 3px solid #000;
+}
+
+#form-mode-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+#form-mode-buttons button {
+    flex: 1;
+    font-size: 0.9rem;
+}
+
+#expense-list li {
+    border: 2px dashed #000;
+    border-radius: 8px;
+    padding: 10px;
+    background: #fafafa;
+    box-shadow: 3px 3px 0px #000;
+}
+
+/* Estilo para cada item da lista (card) */
+.doodle-card {
+    background-color: #f9fafb;
+    /* um cinza claro para o fundo */
+    border: 1px solid #e5e7eb;
+    border-radius: 0.75rem;
+    /* Bordas arredondadas */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.03);
+    /* Sombra sutil */
+}
+
+/* Estilos para os botões dentro do card */
+.edit-button-list,
+.delete-button-list {
+    background-color: transparent;
+    /* Fundo transparente */
+    border: none;
+    color: #4b5563;
+    /* Cor do ícone */
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.edit-button-list:hover {
+    color: #4f46e5;
+    /* Cor roxa no hover */
+    transform: scale(1.1);
+    /* Efeito de zoom */
+}
+
+.delete-button-list:hover {
+    color: #ef4444;
+    /* Cor vermelha no hover */
+    transform: scale(1.1);
+}

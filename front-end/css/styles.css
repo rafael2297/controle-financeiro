@@ -1,0 +1,193 @@
+@import url('https://fonts.googleapis.com/css2?family=Short+Stack&display=swap');
+
+body {
+    font-family: 'Short Stack', cursive;
+    background: #fdfdfd;
+    color: #333;
+    margin: 0;
+    padding: 0;
+
+    /* Espaçamento nas bordas */
+    padding: 20px;
+}
+
+/* ------------------- */
+/* LOADING SCREEN      */
+/* ------------------- */
+#loading-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    width: 320px;
+    height: 220px;
+    margin: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    background: #fff;
+    border: 2px solid black;
+    border-radius: 12px;
+    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.3);
+
+    padding: 20px;
+}
+
+.spinner {
+    border: 6px solid rgba(0, 0, 0, 0.2);
+    border-top: 6px solid #000;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+    margin-bottom: 15px;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.progress-container {
+    width: 90%;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    height: 12px;
+    margin-top: 15px;
+    border: 1px solid black;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0;
+    background: #000;
+    transition: width 0.3s ease;
+}
+
+/* ------------------- */
+/* ESTILO DOODLE GERAL */
+/* ------------------- */
+.doodle-card {
+    background: #fffef8;
+    border: 2px solid #000;
+    border-radius: 12px;
+    box-shadow: 5px 5px 0px #000;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.doodle-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #222;
+    text-shadow: 1px 1px 0 #000;
+    margin: 0;
+}
+
+.doodle-subtitle {
+    font-size: 1rem;
+    color: #555;
+    margin-top: 0.5rem;
+}
+
+.doodle-button {
+    background: #fff;
+    border: 2px solid #000;
+    padding: 10px 16px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: bold;
+    color: #000;
+    box-shadow: 3px 3px 0px #000;
+    transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.doodle-button:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 5px 5px 0px #000;
+    background: #fef08a;
+}
+
+/* Caixa com borda pontilhada */
+.doodle-box {
+    border: 2px dashed #000;
+    border-radius: 10px;
+    background: #fefcf5;
+    padding: 20px;
+}
+
+.doodle-section-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+/* ------------------- */
+/* NAVBAR DOODLE       */
+/* ------------------- */
+.navbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+
+    background: #fffef8;
+
+    padding: 12px 0;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+}
+
+.nav-button {
+    background: #fff;
+    border: 2px solid #000;
+    padding: 8px 14px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: bold;
+    color: #000;
+    box-shadow: 3px 3px 0px #000;
+    transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+}
+
+.nav-button:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 5px 5px 0px #000;
+    background: #fef08a;
+}
+
+.nav-button.active {
+    background: #fef08a;
+    border: 2px solid #000;
+    box-shadow: inset 2px 2px 0px #000;
+}
+
+/* ------------------- */
+/* BOTÕES DE AÇÃO      */
+/* ------------------- */
+#add-expense-btn {
+    background: #fee2e2;
+    /* vermelho clarinho */
+}
+
+#add-expense-btn:hover {
+    background: #fca5a5;
+    /* vermelho suave */
+}
+
+#add-income-btn {
+    background: #dcfce7;
+    /* verde clarinho */
+}
+
+#add-income-btn:hover {
+    background: #86efac;
+    /* verde suave */
+}
