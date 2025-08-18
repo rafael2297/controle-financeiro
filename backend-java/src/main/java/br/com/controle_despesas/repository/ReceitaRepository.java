@@ -12,7 +12,7 @@ import br.com.controle_despesas.model.Receita;
 @Repository
 public interface ReceitaRepository extends JpaRepository<Receita, Long> {
 
-    @Query("SELECT SUM(r.valor) FROM Receita r")
+    @Query("SELECT COALESCE(SUM(r.valor), 0) FROM Receita r")
     BigDecimal sumAllReceitas();
 
     @Query(value = "SELECT DATE_FORMAT(data_receita, '%Y-%m') AS mes, SUM(valor) FROM tb_receitas GROUP BY mes", nativeQuery = true)

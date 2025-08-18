@@ -26,8 +26,7 @@ public interface DespesaRepository extends JpaRepository<Despesa, Long> { // ðŸ”
             """, nativeQuery = true)
     List<Object[]> gerarRelatorioBruto();
 
-    // ðŸ”¹ NOVO: soma de todas as despesas
-    @Query("SELECT SUM(d.valor) FROM Despesa d")
+    @Query("SELECT COALESCE(SUM(d.valor), 0) FROM Despesa d")
     BigDecimal sumAllDespesas();
 
     @Query(value = "SELECT DATE_FORMAT(data_despesa, '%Y-%m') AS mes, SUM(valor) FROM tb_despesas GROUP BY mes", nativeQuery = true)
