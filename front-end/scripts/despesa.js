@@ -56,19 +56,23 @@ document.addEventListener("DOMContentLoaded", () => {
       </div>
     `;
 
-        li.querySelector(".edit-button-list").addEventListener("click", () => openEditExpense(expense));
-        li.querySelector(".delete-button-list").addEventListener("click", async () => {
-            if (confirm("Deseja excluir esta despesa?")) {
-                await fetch(`http://localhost:8080/api/despesas/${expense.id}`, { method: "DELETE" });
+        // Botão editar
+        const editBtn = li.querySelector(".edit-button-list");
+        editBtn.addEventListener("click", () => openEditExpense(expense));
+        editBtn.addEventListener("mousedown", e => e.preventDefault()); // ✅ impede roubar foco
 
-                // ✅ garante que nenhum modal fique aberto
-                editModal.classList.remove("flex");
-                editModal.classList.add("hidden");
+        // Botão deletar (direto, sem confirmar)
+        const deleteBtn = li.querySelector(".delete-button-list");
+        deleteBtn.addEventListener("click", async () => {
+            await fetch(`http://localhost:8080/api/despesas/${expense.id}`, { method: "DELETE" });
 
-                loadExpenses();
-            }
+            // ✅ garante que nenhum modal fique aberto
+            editModal.classList.remove("flex");
+            editModal.classList.add("hidden");
+
+            loadExpenses();
         });
-
+        deleteBtn.addEventListener("mousedown", e => e.preventDefault()); // ✅ impede roubar foco
 
         return li;
     }
@@ -111,7 +115,6 @@ document.addEventListener("DOMContentLoaded", () => {
             categoriesMap.clear();
 
             categories.forEach(cat => {
-                // Fallback para diferentes formatos do backend
                 const id = cat.id ?? cat.idCategoria ?? cat.id_categoria;
                 const nome = cat.nome ?? cat.nomeCategoria ?? cat.nome_categoria ?? "";
 
@@ -132,7 +135,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function toInputDate(value) {
-        // aceita "2025-08-17" ou "2025-08-17T00:00:00"
         if (!value) return "";
         if (value.includes("T")) return value.split("T")[0];
         return value;
@@ -150,11 +152,6 @@ document.addEventListener("DOMContentLoaded", () => {
         editModal.classList.remove("hidden");
     }
 
-    function closeEditModal() {
-        editModal.classList.remove("flex");
-        editModal.classList.add("hidden");
-    }
-
     closeEditBtn?.addEventListener("click", closeEditModal);
     cancelEditBtn?.addEventListener("click", closeEditModal);
 
@@ -164,7 +161,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const payload = {
             descricao: editDescription.value,
             valor: parseFloat(editAmount.value),
-            dataDespesa: editDate.value,              // yyyy-MM-dd
+            dataDespesa: editDate.value,
             idCategoria: parseInt(editCategory.value),
             pagamento: editPayment.value
         };
@@ -205,7 +202,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const payload = {
             descricao: description,
             valor: amount,
-            dataDespesa: date,       // yyyy-MM-dd
+            dataDespesa: date,
             idCategoria: categoryId,
             pagamento: payment
         };
@@ -232,23 +229,22 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
+    // Função deleteExpense sem confirmar
     async function deleteExpense(id) {
-        if (!confirm("Deseja excluir esta despesa?")) return;
-
         try {
             const resp = await fetch(`http://localhost:8080/api/despesas/${id}`, { method: "DELETE" });
             if (!resp.ok) {
                 console.error("Falha ao excluir:", await resp.text());
                 return;
             }
-            await loadExpenses(); // mantém tudo funcionando depois do delete
+            await loadExpenses();
         } catch (err) {
             console.error("Erro de rede ao excluir despesa:", err);
         }
     }
 
     refreshExpensesBtn?.addEventListener("click", async () => {
-        await loadCategories(); // garante nomes de categoria sempre disponíveis
+        await loadCategories();
         await loadExpenses();
     });
 
