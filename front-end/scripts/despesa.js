@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const createCategory = document.getElementById("expense-category");
     const createPayment = document.getElementById("expense-payment");
 
-    // Mapa de categorias id->nome (como string para chave estável)
+    // Mapa de categorias id->nome
     const categoriesMap = new Map();
 
     function formatCurrency(value) {
@@ -43,29 +43,41 @@ document.addEventListener("DOMContentLoaded", () => {
         const nomeCat = expense.categoriaNome || getCategoryName(expense.idCategoria);
 
         li.innerHTML = `
-        <div>${expense.descricao}</div>
-        <div>${formatCurrency(expense.valor)}</div>
-        <div>${dataBr}</div>
-        <div>${nomeCat}</div>
-        <div>${expense.pagamento || "-"}</div>
-        <div class="flex gap-2 justify-center">
-            <button class="edit-button-list">✏️</button>
-            <button class="delete-button-list">🗑️</button>
-        </div>
-    `;
+            <div>${expense.descricao}</div>
+            <div class="expense-value">-${formatCurrency(expense.valor)}</div>
+            <div>${dataBr}</div>
+            <div>${nomeCat}</div>
+            <div>${expense.pagamento || "-"}</div>
+            <div class="flex gap-2 justify-center">
+                <button class="edit-button-list">✏️</button>
+                <button class="delete-button-list">🗑️</button>
+            </div>
+        `;
 
         // Ações
         li.querySelector(".edit-button-list").addEventListener("click", () => openEditExpense(expense));
         li.querySelector(".delete-button-list").addEventListener("click", async () => {
             await fetch(`http://localhost:8080/api/despesas/${expense.id}`, { method: "DELETE" });
-            loadExpenses();
+            await loadExpenses();
         });
 
         return li;
     }
 
-
-
+    async function updateBalance() {
+        try {
+            const response = await fetch("http://localhost:8080/api/saldos/atual");
+            if (response.ok) {
+                const valor = await response.json();
+                document.getElementById("current-balance").innerText =
+                    new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(valor);
+            } else {
+                console.error("❌ Erro ao buscar saldo atual");
+            }
+        } catch (error) {
+            console.error("❌ Erro de rede ao buscar saldo:", error);
+        }
+    }
 
     function closeEditModal() {
         editModal.classList.remove("flex");
@@ -82,8 +94,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 expenseList.appendChild(renderExpense(exp));
             });
 
-            // ✅ força fechamento do modal para não travar a UI
-            closeEditModal();
+            await updateBalance(); // ✅ saldo vem do backend
+            closeEditModal(); // fecha modal se estava aberto
         } catch (err) {
             console.error("Erro ao carregar despesas:", err);
         }
@@ -94,7 +106,6 @@ document.addEventListener("DOMContentLoaded", () => {
             const res = await fetch("http://localhost:8080/api/categorias");
             const categories = await res.json();
 
-            // Limpa e repovoa selects
             if (createCategory) {
                 createCategory.innerHTML = `<option value="" disabled selected>Selecione uma categoria</option>`;
             }
@@ -219,7 +230,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Função deleteExpense sem confirmar
     async function deleteExpense(id) {
         try {
             const resp = await fetch(`http://localhost:8080/api/despesas/${id}`, { method: "DELETE" });

@@ -26,7 +26,7 @@
         <form id="add-expense-form">
             <input type="text" id="expense-description" placeholder="Descrição" class="doodle-input" required>
             <input type="number" id="expense-amount" placeholder="Valor" class="doodle-input" step="0.01" required>
-            <input type="date" id="expense-date" class="doodle-input" required>
+            <input type="date" id="expense-date" class="doodle-input" required lang="pt-BR">
 
             <select id="expense-category" class="doodle-input" required>
                 <option value="" disabled selected>Selecione uma categoria</option>
@@ -43,6 +43,10 @@
             <button id="add-expense-btn" type="submit" class="doodle-button">Adicionar Despesa</button>
         </form>
 
+        <div id="balance-box" class="balance-box">
+            <span>💰 Saldo Atual:</span>
+            <strong id="current-balance">R$ 0,00</strong>
+        </div>
 
         <!-- Header da lista -->
         <div class="list-header flex justify-between items-center mb-2">
