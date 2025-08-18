@@ -3,9 +3,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const saldoForm = document.getElementById("saldo-form");
     const saldoAtualEl = document.getElementById("saldo-atual");
 
-    /**
-     * Formata o valor em BRL
-     */
     function formatarMoeda(valor) {
         return new Intl.NumberFormat("pt-BR", {
             style: "currency",
@@ -14,14 +11,13 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /**
-     * Busca saldo atual no backend e atualiza o front
+     * Busca saldo atualizado do backend
      */
     async function carregarSaldo() {
         try {
             const response = await fetch("http://localhost:8080/api/saldos/atual");
             if (response.ok) {
                 const valor = await response.json();
-                console.log("✅ Saldo atual recebido do backend:", valor); // <--- DEBUG
                 saldoAtualEl.textContent = formatarMoeda(valor);
             } else {
                 console.error("❌ Erro ao buscar saldo atual");
@@ -36,11 +32,10 @@ document.addEventListener("DOMContentLoaded", () => {
             const response = await fetch("http://localhost:8080/api/saldos/existe");
             if (response.ok) {
                 const existe = await response.json();
-                console.log("ℹ️ Existe saldo cadastrado?", existe); // <--- DEBUG
                 if (!existe) {
                     saldoModal.classList.remove("hidden");
                 } else {
-                    carregarSaldo(); // já existe saldo, carrega direto
+                    carregarSaldo();
                 }
             }
         } catch (error) {
@@ -48,24 +43,23 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-
     /**
-     * Evento submit do formulário do saldo inicial
+     * Envia saldo inicial
      */
     saldoForm.addEventListener("submit", async (e) => {
         e.preventDefault();
         const valor = parseFloat(document.getElementById("saldo-inicial").value);
 
         try {
-            const response = await fetch("http://localhost:8080/api/saldos", { // ✅ URL absoluta
+            const response = await fetch("http://localhost:8080/api/saldos", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ valorInicial: valor })
             });
 
             if (response.ok) {
-                saldoModal.classList.add("hidden"); // esconde modal
-                carregarSaldo(); // atualiza saldo exibido
+                saldoModal.classList.add("hidden");
+                carregarSaldo();
             } else {
                 console.error("Erro ao salvar saldo inicial");
             }
@@ -74,6 +68,12 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Inicializa ao carregar página
+    /**
+     * 🔹 Listener global para atualizar saldo em tempo real
+     * Sempre que um evento customizado "saldo:atualizar" for disparado
+     */
+    document.addEventListener("saldo:atualizar", carregarSaldo);
+
+    // Inicializa
     verificarSaldoExistente();
 });

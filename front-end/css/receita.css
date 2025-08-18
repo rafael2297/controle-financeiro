@@ -1,72 +1,200 @@
 @import url("./styles.css");
 
-/* Estilo para a página de Despesas */
+/* Container principal */
 #main-app {
     background: #fffef8;
-    border: 3px solid #000;
 }
 
-#form-mode-buttons {
+/* Header da lista (título + botão atualizar) */
+.list-header {
     display: flex;
-    gap: 10px;
-    margin-bottom: 12px;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
 }
 
-#form-mode-buttons button {
-    flex: 1;
-    font-size: 0.9rem;
+/* Cabeçalho das colunas */
+.income-columns {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr;
+    font-weight: bold;
+    text-align: center;
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 0.75rem 0;
+    background: #f9f9f9;
+    margin-bottom: 5px;
 }
 
-#expense-list li {
-    border: 2px dashed #000;
-    border-radius: 8px;
-    padding: 10px;
-    background: #fafafa;
-    box-shadow: 3px 3px 0px #000;
+.income-columns,
+#income-list li.income-card {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr;
+    text-align: center;
+    gap: 0.5rem;
+    align-items: center;
 }
 
-/* Estilo para cada item da lista (card) */
-.doodle-card {
-    background-color: #f9fafb;
-    /* um cinza claro para o fundo */
-    border: 1px solid #e5e7eb;
-    border-radius: 0.75rem;
-    /* Bordas arredondadas */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.03);
-    /* Sombra sutil */
+/* Lista de receitas */
+#income-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
-/* Estilos para os botões dentro do card */
+/* Cada receita (linha/card) */
+#income-list li.income-card {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr;
+    align-items: center;
+    text-align: center;
+    gap: 0.5rem;
+
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 0.75rem;
+    background: white;
+    transition: background 0.2s ease, transform 0.2s ease;
+    box-sizing: border-box;
+}
+
+/* Hover do card */
+#income-list li.income-card:hover {
+    background: #f5f5f5;
+    transform: scale(1.01);
+}
+
+/* Coluna de botões */
+#income-list li.income-card .actions {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+/* Botões dentro do card */
 .edit-button-list,
 .delete-button-list {
-    background-color: transparent;
-    /* Fundo transparente */
+    background: transparent;
     border: none;
-    color: #4b5563;
-    /* Cor do ícone */
     cursor: pointer;
-    transition: all 0.2s ease-in-out;
+    font-size: 1.2rem;
+    transition: transform 0.2s ease, color 0.2s ease;
 }
 
 .edit-button-list:hover {
     color: #4f46e5;
-    /* Cor roxa no hover */
     transform: scale(1.1);
-    /* Efeito de zoom */
 }
 
 .delete-button-list:hover {
     color: #ef4444;
-    /* Cor vermelha no hover */
     transform: scale(1.1);
 }
 
+/* Modal overlay (fundo escuro) */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 50;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-overlay.flex {
+    display: flex;
+}
+
+.modal-overlay.hidden {
+    display: none !important;
+    pointer-events: none !important;
+}
+
+/* Card dentro do modal */
+.modal-card {
+    background: white;
+    border: 2px solid black;
+    border-radius: 12px;
+    padding: 1.5rem;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 4px 4px 0px black;
+    position: relative;
+}
+
+/* Botão de fechar (X) */
+.modal-close {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: transparent;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+/* Formulário */
+#add-income-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+#add-income-form .last-row {
+    display: flex;
+    gap: 0.75rem;
+}
+
+#add-income-form select {
+    border: 2px solid black;
+    border-radius: 8px;
+    padding: 0.5rem;
+    background: white;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
 #add-income-btn {
-    background: #dcfce7;
-    /* verde clarinho */
+    background: #dcfce7; /* verde clarinho */
 }
 
 #add-income-btn:hover {
-    background: #86efac;
-    /* verde suave */
+    background: #86efac; /* verde suave */
+}
+
+/* Inputs e selects */
+.doodle-input {
+    border: 2px solid black;
+    border-radius: 8px;
+    padding: 0.5rem;
+    background: white;
+    font-size: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+    cursor: text;
+}
+
+.doodle-input:focus {
+    outline: none;
+    border-color: #4f46e5;
+    box-shadow: 2px 2px 0px black;
+}
+
+/* Caixa do saldo */
+.balance-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 0.75rem 1rem;
+    margin-bottom: 1rem;
+    background: #fef3c7; 
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.balance-box strong {
+    color: #16a34a; /* verde */
 }

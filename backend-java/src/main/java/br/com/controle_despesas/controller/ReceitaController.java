@@ -1,10 +1,19 @@
 package br.com.controle_despesas.controller;
 
-import br.com.controle_despesas.model.Receita;
-import br.com.controle_despesas.service.ReceitaService;
-import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
+
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import br.com.controle_despesas.DTO.ReceitaDTO;
+import br.com.controle_despesas.service.ReceitaService;
 
 @RestController
 @RequestMapping("/api/receitas")
@@ -18,17 +27,17 @@ public class ReceitaController {
     }
 
     @GetMapping
-    public List<Receita> listar() {
+    public List<ReceitaDTO> listar() {
         return service.listarTodas();
     }
 
     @PostMapping
-    public Receita adicionar(@RequestBody Receita receita) {
+    public ReceitaDTO adicionar(@RequestBody ReceitaDTO receita) {
         return service.salvar(receita);
     }
 
     @PutMapping("/{id}")
-    public Receita alterar(@PathVariable Long id, @RequestBody Receita receita) {
+    public ReceitaDTO alterar(@PathVariable Long id, @RequestBody ReceitaDTO receita) {
         return service.atualizar(id, receita);
     }
 

@@ -34,13 +34,12 @@ public class Receita {
     private String descricao;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "categoria_id")
+    @JoinColumn(name = "categoria_id", nullable = false)
     private Categoria categoria;
 
     @Column(nullable = false)
     private LocalDate data;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    @Column(nullable = false, length = 20)
+    private String pagamento;
 }

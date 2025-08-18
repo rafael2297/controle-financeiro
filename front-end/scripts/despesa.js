@@ -69,8 +69,16 @@ document.addEventListener("DOMContentLoaded", () => {
             const response = await fetch("http://localhost:8080/api/saldos/atual");
             if (response.ok) {
                 const valor = await response.json();
-                document.getElementById("current-balance").innerText =
-                    new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(valor);
+                const balanceEl = document.getElementById("current-balance");
+
+                balanceEl.innerText = formatCurrency(valor);
+
+                // 🔴 Se negativo -> vermelho, senão verde
+                if (valor < 0) {
+                    balanceEl.style.color = "red";
+                } else {
+                    balanceEl.style.color = "green";
+                }
             } else {
                 console.error("❌ Erro ao buscar saldo atual");
             }

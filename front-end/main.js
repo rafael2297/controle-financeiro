@@ -52,8 +52,6 @@ function stopBackend() {
     }
 }
 
-
-
 /**
  * Cria a janela principal do app.
  */
@@ -110,7 +108,7 @@ ipcMain.on("refresh-data", () => {
 
 // Função fetch compatível com ESM
 const fetch = (...args) => import("node-fetch").then(({ default: fetch }) => fetch(...args));
-const API_BASE = "http://localhost:8080";
+const API_BASE = "http://localhost:8080/api";
 
 // ================= DESPESAS =================
 ipcMain.handle("get-expenses", async () => {
@@ -191,27 +189,31 @@ ipcMain.handle("add-category", async (event, category) => {
 
 // ================= RECEITAS =================
 ipcMain.handle("get-receitas", async () => {
-    try {
-        const response = await fetch(`${API_BASE}/receitas`);
-        return await response.json();
-    } catch (err) {
-        console.error("Erro em get-receitas:", err);
-        throw err;
-    }
+    const res = await fetch(`${API_BASE}/receitas`);
+    return res.json();
 });
 
 ipcMain.handle("add-receita", async (event, receita) => {
-    try {
-        const response = await fetch(`${API_BASE}/receitas`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(receita),
-        });
-        return await response.json();
-    } catch (err) {
-        console.error("Erro em add-receita:", err);
-        throw err;
-    }
+    const res = await fetch(`${API_BASE}/receitas`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(receita),
+    });
+    return res.json();
+});
+
+ipcMain.handle("update-receita", async (event, { id, receita }) => {
+    const res = await fetch(`${API_BASE}/receitas/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(receita),
+    });
+    return res.json();
+});
+
+ipcMain.handle("delete-receita", async (event, id) => {
+    await fetch(`${API_BASE}/receitas/${id}`, { method: "DELETE" });
+    return { success: true };
 });
 
 // ================= SALDO =================

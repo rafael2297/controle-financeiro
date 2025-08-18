@@ -3,84 +3,96 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Receitas</title>
-    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/receita.css"> <!-- usa o CSS exclusivo -->
     <script src="../scripts/receita.js" defer></script>
 </head>
 
-<body class="doodle-body flex items-center justify-center min-h-screen">
+<body class="doodle-body flex flex-col items-center justify-center min-h-screen p-6">
 
     <!-- Navbar -->
     <nav class="navbar">
-        <a href="home.html" class="nav-button active">Início</a>
+        <a href="home.html" class="nav-button">Início</a>
         <a href="despesas.html" class="nav-button">Despesas</a>
-        <a href="receita.html" class="nav-button">Receitas</a>
+        <a href="receita.html" class="nav-button active">Receitas</a>
         <a href="relatorio.html" class="nav-button">Relatórios</a>
         <a href="categorias.html" class="nav-button">Categorias</a>
     </nav>
 
-    <!-- Container principal -->
-    <div id="main-app"
-        class="w-full max-w-4xl mx-auto bg-white rounded-xl shadow-2xl p-6 sm:p-8 mt-6 transform scale-100 transition-transform duration-500">
+    <div id="main-app" class="w-full max-w-lg space-y-6 bg-white p-6 rounded-2xl shadow doodle-card">
+        <h1 class="text-3xl font-bold text-center">Gerenciar Receitas</h1>
 
-        <header class="text-center mb-6">
-            <h1 class="text-3xl sm:text-4xl font-extrabold text-gray-800">Gerenciar Receitas</h1>
-            <p class="text-gray-500 mt-1">Registre e acompanhe todas as suas receitas.</p>
-        </header>
+        <!-- Formulário de nova receita -->
+        <form id="add-income-form">
+            <input type="text" id="income-description" placeholder="Descrição" class="doodle-input" required>
+            <input type="number" id="income-amount" placeholder="Valor" class="doodle-input" step="0.01" required>
+            <input type="date" id="income-date" class="doodle-input" required lang="pt-BR">
 
-        <div class="doodle-card max-w-4xl w-full p-6 sm:p-8">
-            <!-- Formulário para adicionar receita -->
-            <div class="bg-gray-50 p-6 rounded-lg mb-6">
-                <h3 class="text-lg font-semibold mb-3">Adicionar Nova Receita</h3>
-                <form id="add-income-form" class="space-y-4">
-                    <div>
-                        <label for="income-description"
-                            class="block text-sm font-medium text-gray-700">Descrição</label>
-                        <input type="text" id="income-description" required
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2">
-                    </div>
-                    <div class="flex space-x-4">
-                        <div class="w-1/2">
-                            <label for="income-amount" class="block text-sm font-medium text-gray-700">Valor
-                                (R$)</label>
-                            <input type="number" id="income-amount" required step="0.01"
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2">
-                        </div>
-                        <div class="w-1/2">
-                            <label for="income-date" class="block text-sm font-medium text-gray-700">Data</label>
-                            <input type="date" id="income-date" required
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2">
-                        </div>
-                    </div>
-                    <div>
-                        <label for="income-category" class="block text-sm font-medium text-gray-700">Categoria</label>
-                        <select id="income-category" required
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2">
-                            <!-- opções serão carregadas dinamicamente -->
-                        </select>
-                    </div>
-                    <button id="add-income-btn" type="button" class="doodle-button w-full">
-                        Adicionar Receita
-                    </button>
-                </form>
-            </div>
+            <select id="income-category" class="doodle-input" required>
+                <option value="" disabled selected>Selecione uma categoria</option>
+            </select>
 
-            <!-- Lista de receitas -->
-            <div class="mt-8">
-                <div class="flex items-center justify-between mb-3">
-                    <h3 class="text-lg font-semibold">Últimas Receitas</h3>
-                    <button id="refresh-incomes" class="doodle-button px-4 py-1 text-sm">
-                        Atualizar
-                    </button>
-                </div>
-                <ul id="income-list" class="space-y-4">
-                    <!-- Receitas carregadas via JS -->
-                </ul>
-            </div>
+            <!-- 🔹 Forma de recebimento -->
+            <select id="income-payment" class="doodle-input" required>
+                <option value="" disabled selected>Forma de recebimento</option>
+                <option value="DINHEIRO">Dinheiro</option>
+                <option value="CARTAO">Cartão</option>
+                <option value="PIX">Pix</option>
+            </select>
+
+            <button id="add-income-btn" type="submit" class="doodle-button">Adicionar Receita</button>
+        </form>
+
+        <!-- Caixa do saldo -->
+        <div id="balance-box" class="balance-box">
+            <span>💰 Saldo Atual:</span>
+            <strong id="current-balance">R$ 0,00</strong>
         </div>
-    </div>
 
-</body>
+        <!-- Header da lista -->
+        <div class="list-header">
+            <h2 class="text-xl font-semibold">Últimas Receitas</h2>
+            <button id="refresh-incomes" class="doodle-button px-3 py-1 text-sm">⟳</button>
+        </div>
 
-</html>
+        <!-- Lista -->
+        <div class="doodle-box">
+            <!-- Cabeçalho das colunas -->
+            <div class="income-columns">
+                <div>Descrição</div>
+                <div>Valor</div>
+                <div>Data</div>
+                <div>Categoria</div>
+                <div>Recebimento</div>
+                <div>Ações</div>
+            </div>
+
+            <ul id="income-list" class="space-y-2"></ul>
+        </div>
+
+        <!-- Modal edição -->
+        <div id="edit-income-modal" class="modal-overlay hidden">
+            <div class="modal-card w-full max-w-lg space-y-6 bg-white p-6 rounded-2xl shadow doodle-card">
+                <button id="close-edit-income" class="modal-close">✖</button>
+                <h2 class="text-xl font-bold mb-4">Editar Receita</h2>
+                <form id="edit-income-form" class="space-y-4">
+                    <input type="hidden" id="edit-income-id">
+
+                    <input type="text" id="edit-income-description" class="doodle-input w-full" required>
+                    <input type="number" id="edit-income-amount" class="doodle-input w-full" step="0.01" required>
+                    <input type="date" id="edit-income-date" class="doodle-input w-full" required>
+
+                    <select id="edit-income-category" class="doodle-input w-full" required>
+                        <option value="" disabled selected>Selecione uma categoria</option>
+                    </select>
+
+                    <!-- 🔹 Forma de recebimento no modal -->
+                    <select id="edit-income-payment" class="doodle-input w-full" required>
+                        <option value="" disabled selected>Forma de recebimento</option>
+                        <option value="DINHEIRO">Dinheiro</option>
+                        <option value="CARTAO">Cartão</option>
+                        <option value="PIX">Pix</option>
+                    </select>
+
+                    <div class="flex justify-end gap-3">
+                        <button type="button" id="cancel-edit-income" class=
