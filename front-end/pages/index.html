@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<script>
+    async function checkBackendStatus() {
+        try {
+            const res = await fetch("http://localhost:8080/actuator/health");
+            return res.ok;
+        } catch (err) {
+            console.log("Backend ainda não está pronto...");
+            return false;
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const progressBar = document.getElementById("progress-bar");
+        let progress = 0;
+        let intervalId;
+
+        // Simulação da barra de progresso (vai até 90%)
+        intervalId = setInterval(() => {
+            if (progress < 90) {
+                progress += 5;
+                progressBar.style.width = progress + "%";
+            }
+        }, 500);
+
+        // Checar backend a cada 2s
+        const checkInterval = setInterval(async () => {
+            const isBackendReady = await checkBackendStatus();
+            if (isBackendReady) {
+                clearInterval(checkInterval);
+                clearInterval(intervalId);
+
+                // Completa a barra e troca de tela
+                progressBar.style.width = "100%";
+                setTimeout(() => {
+                    window.location.href = "home.html";
+                }, 500);
+            }
+        }, 2000);
+    });
+</script>
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minha App de Finanças</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <script src="../scripts/script.js" defer></script>
+</head>
+
+<body class="doodle">
+    <!-- Tela de Carregamento -->
+    <div id="loading-screen">
+        <div class="spinner"></div>
+        <p>Carregando aplicação...</p>
+        <div class="progress-container">
+            <div id="progress-bar" class="progress-bar"></div>
+        </div>
+    </div>
+</body>
+
+</html>

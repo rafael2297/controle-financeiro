@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categorias</title>
+    <link rel="stylesheet" href="../css/categoria.css">
+    <script src="../scripts/categorias.js" defer></script>
+</head>
+
+<body class="doodle-body flex items-center justify-center min-h-screen">
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <a href="home.html" class="nav-button">Início</a>
+        <a href="despesas.html" class="nav-button">Despesas</a>
+        <a href="receita.html" class="nav-button">Receitas</a>
+        <a href="relatorio.html" class="nav-button">Relatórios</a>
+        <a href="categorias.html" class="nav-button active">Categorias</a>
+    </nav>
+
+    <div id="main-app"
+        class="w-full max-w-4xl mx-auto bg-white rounded-xl shadow-2xl p-6 sm:p-8 mt-6 transform scale-100 transition-transform duration-500">
+
+        <header class="text-center mb-6">
+            <h1 class="text-3xl sm:text-4xl font-extrabold text-gray-800">Gerenciar Categorias</h1>
+            <p class="text-gray-500 mt-1">Crie, edite e exclua categorias para despesas e receitas.</p>
+        </header>
+
+        <!-- Formulário de Categoria -->
+        <div class="doodle-card max-w-4xl w-full p-6 sm:p-8">
+            <!-- Caixa de adicionar -->
+            <div class="bg-gray-50 p-6 rounded-lg border border-black mb-6">
+                <div class="category-header">
+                    <h3 class="text-lg font-semibold">Adicionar Nova Categoria</h3>
+                </div>
+
+                <form id="add-category-form" class="flex items-center gap-3 mt-3">
+                    <input type="text" id="category-name" required placeholder="Nome da Categoria"
+                        class="flex-1 rounded-md border border-black p-2" />
+
+                    <button id="add-category" type="submit" class="doodle-button px-4 py-2" title="Adicionar">
+                        adicionar ➕
+                    </button>
+                </form>
+            </div>
+
+            <!-- Lista de categorias -->
+            <div class="doodle-box mb-6">
+                <div class="category-header">
+                    <h3 class="text-lg font-semibold">Categorias</h3>
+                    <button id="refresh-categories" class="doodle-button px-4 py-1 text-sm" title="Atualizar">
+                        ⟳
+                    </button>
+                </div>
+                <ul id="category-list" class="space-y-4">
+                    <!-- Categorias carregadas via JavaScript -->
+                </ul>
+            </div>
+        </div>
+
+        <!-- Modal de edição -->
+        <div id="edit-category-modal" class="modal-overlay" aria-hidden="true">
+            <div class="modal-card">
+                <!-- Botão X para fechar -->
+                <button id="close-edit-modal" class="modal-close" aria-label="Fechar">✖</button>
+
+                <h2 class="text-xl font-bold mb-4">Editar Categoria</h2>
+
+                <form id="edit-category-form" class="space-y-4">
+                    <input type="hidden" id="edit-category-id" />
+
+                    <div>
+                        <label for="edit-category-name" class="block text-sm font-medium">Nome da Categoria</label>
+                        <input type="text" id="edit-category-name" required
+                            class="mt-1 block w-full border rounded-md p-2 border-black" />
+                    </div>
+
+                    <div class="flex justify-end gap-3 mt-4">
+                        <button type="button" id="cancel-edit-category" class="doodle-button">Cancelar</button>
+                        <button type="submit" class="doodle-button">Salvar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+
+
+</body>
+
+</html>

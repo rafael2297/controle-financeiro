@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatórios</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <script src="../scripts/relatorio.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body class="doodle-body flex items-center justify-center min-h-screen">
+
+    <!-- Navegação principal -->
+    <nav class="navbar">
+        <a href="home.html" class="nav-button active">Início</a>
+        <a href="despesas.html" class="nav-button">Despesas</a>
+        <a href="receita.html" class="nav-button">Receitas</a>
+        <a href="relatorio.html" class="nav-button">Relatórios</a>
+        <a href="categorias.html" class="nav-button">Categorias</a>
+    </nav>
+
+    <!-- Container principal -->
+    <div id="main-app" class="doodle-card max-w-4xl w-full p-6 sm:p-8">
+
+        <!-- Cabeçalho -->
+        <header class="text-center mb-6">
+            <h1 class="doodle-title">📊 Relatórios Financeiros</h1>
+            <p class="doodle-subtitle">Visualize o resumo de suas despesas e receitas.</p>
+        </header>
+
+        <!-- Resumo -->
+        <div class="doodle-box mb-6">
+            <h2 class="doodle-section-title">Resumo Geral</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-4 text-center">
+                <div class="p-4 border-2 border-black rounded-lg">
+                    <h3 class="font-bold">Total de Receitas</h3>
+                    <p id="total-incomes" class="text-green-600 text-xl font-extrabold mt-2">R$ 0,00</p>
+                </div>
+                <div class="p-4 border-2 border-black rounded-lg">
+                    <h3 class="font-bold">Total de Despesas</h3>
+                    <p id="total-expenses" class="text-red-600 text-xl font-extrabold mt-2">R$ 0,00</p>
+                </div>
+                <div class="p-4 border-2 border-black rounded-lg">
+                    <h3 class="font-bold">Saldo</h3>
+                    <p id="balance" class="text-blue-600 text-xl font-extrabold mt-2">R$ 0,00</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Gráficos -->
+        <div class="doodle-box mb-6">
+            <h2 class="doodle-section-title">Gráficos</h2>
+            <div class="mt-4">
+                <!-- Pizza ou barras -->
+                <canvas id="report-chart" class="w-full max-h-96"></canvas>
+            </div>
+        </div>
+
+        <!-- Histórico -->
+        <div class="doodle-box">
+            <h2 class="doodle-section-title">Histórico</h2>
+
+            <!-- Novo gráfico de linha -->
+            <div class="mt-4">
+                <canvas id="history-chart" class="w-full max-h-96"></canvas>
+            </div>
+
+            <!-- Histórico detalhado -->
+            <div id="report-history" class="mt-6 space-y-3">
+                <!-- Histórico de transações será adicionado via JS -->
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+</html>
