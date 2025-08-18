@@ -172,22 +172,5 @@ body {
 /* ------------------- */
 /* BOTÕES DE AÇÃO      */
 /* ------------------- */
-#add-expense-btn {
-    background: #fee2e2;
-    /* vermelho clarinho */
-}
 
-#add-expense-btn:hover {
-    background: #fca5a5;
-    /* vermelho suave */
-}
 
-#add-income-btn {
-    background: #dcfce7;
-    /* verde clarinho */
-}
-
-#add-income-btn:hover {
-    background: #86efac;
-    /* verde suave */
-}

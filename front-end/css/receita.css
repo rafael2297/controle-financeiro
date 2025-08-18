@@ -60,3 +60,13 @@
     /* Cor vermelha no hover */
     transform: scale(1.1);
 }
+
+#add-income-btn {
+    background: #dcfce7;
+    /* verde clarinho */
+}
+
+#add-income-btn:hover {
+    background: #86efac;
+    /* verde suave */
+}

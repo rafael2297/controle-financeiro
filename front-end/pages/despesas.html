@@ -40,54 +40,64 @@
                 <option value="PIX">Pix</option>
             </select>
 
-            <button type="submit" class="doodle-button">Adicionar Despesa</button>
+            <button id="add-expense-btn" type="submit" class="doodle-button">Adicionar Despesa</button>
         </form>
 
 
         <!-- Header da lista -->
-        <div class="list-header">
+        <div class="list-header flex justify-between items-center mb-2">
             <h2 class="text-xl font-semibold">Últimas Despesas</h2>
             <button id="refresh-expenses" class="doodle-button px-3 py-1 text-sm">⟳</button>
-
-
         </div>
+
         <div class="doodle-box">
+            <!-- Cabeçalho das colunas -->
+            <div class="expense-columns">
+                <div>Descrição</div>
+                <div>Valor</div>
+                <div>Data</div>
+                <div>Categoria</div>
+                <div>Pagamento</div>
+                <div>Ações</div>
+            </div>
+
             <!-- Lista -->
-            <ul id="expense-list" class="space-y-3"></ul>
+            <ul id="expense-list" class="space-y-2"></ul>
         </div>
-    </div>
 
-    <!-- Modal edição -->
-    <div id="edit-expense-modal" class="modal-overlay hidden">
-        <div class="modal-card w-full max-w-lg space-y-6 bg-white p-6 rounded-2xl shadow doodle-card">
-            <button id="close-edit-expense" class="modal-close">✖</button>
-            <h2 class="text-xl font-bold mb-4">Editar Despesa</h2>
-            <form id="edit-expense-form" class="space-y-4">
-                <input type="hidden" id="edit-expense-id">
 
-                <input type="text" id="edit-expense-description" class="doodle-input w-full" required>
-                <input type="number" id="edit-expense-amount" class="doodle-input w-full" step="0.01" required>
-                <input type="date" id="edit-expense-date" class="doodle-input w-full" required>
 
-                <select id="edit-expense-category" class="doodle-input w-full" required>
-                    <option value="" disabled selected>Selecione uma categoria</option>
-                </select>
+        <!-- Modal edição -->
+        <div id="edit-expense-modal" class="modal-overlay hidden">
+            <div class="modal-card w-full max-w-lg space-y-6 bg-white p-6 rounded-2xl shadow doodle-card">
+                <button id="close-edit-expense" class="modal-close">✖</button>
+                <h2 class="text-xl font-bold mb-4">Editar Despesa</h2>
+                <form id="edit-expense-form" class="space-y-4">
+                    <input type="hidden" id="edit-expense-id">
 
-                <!-- 🔹 Forma de pagamento no modal -->
-                <select id="edit-expense-payment" class="doodle-input w-full" required>
-                    <option value="" disabled selected>Forma de pagamento</option>
-                    <option value="DINHEIRO">Dinheiro</option>
-                    <option value="CARTAO">Cartão</option>
-                    <option value="PIX">Pix</option>
-                </select>
+                    <input type="text" id="edit-expense-description" class="doodle-input w-full" required>
+                    <input type="number" id="edit-expense-amount" class="doodle-input w-full" step="0.01" required>
+                    <input type="date" id="edit-expense-date" class="doodle-input w-full" required>
 
-                <div class="flex justify-end gap-3">
-                    <button type="button" id="cancel-edit-expense" class="doodle-button">Cancelar</button>
-                    <button type="submit" class="doodle-button">Salvar</button>
-                </div>
-            </form>
+                    <select id="edit-expense-category" class="doodle-input w-full" required>
+                        <option value="" disabled selected>Selecione uma categoria</option>
+                    </select>
+
+                    <!-- 🔹 Forma de pagamento no modal -->
+                    <select id="edit-expense-payment" class="doodle-input w-full" required>
+                        <option value="" disabled selected>Forma de pagamento</option>
+                        <option value="DINHEIRO">Dinheiro</option>
+                        <option value="CARTAO">Cartão</option>
+                        <option value="PIX">Pix</option>
+                    </select>
+
+                    <div class="flex justify-end gap-3">
+                        <button type="button" id="cancel-edit-expense" class="doodle-button">Cancelar</button>
+                        <button type="submit" class="doodle-button">Salvar</button>
+                    </div>
+                </form>
+            </div>
         </div>
-    </div>
 
 
 

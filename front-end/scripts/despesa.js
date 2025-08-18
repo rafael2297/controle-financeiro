@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function renderExpense(expense) {
         const li = document.createElement("li");
-        li.className = "expense-card flex justify-between items-center";
+        li.className = "expense-card"; // CSS já garante o grid
 
         const dataBr = expense.dataDespesa
             ? new Date(expense.dataDespesa).toLocaleDateString("pt-BR")
@@ -43,39 +43,29 @@ document.addEventListener("DOMContentLoaded", () => {
         const nomeCat = expense.categoriaNome || getCategoryName(expense.idCategoria);
 
         li.innerHTML = `
-      <div>
-        <p class="font-bold">${expense.descricao}</p>
-        <p class="text-gray-600">${formatCurrency(expense.valor)}</p>
-        <p class="text-sm text-gray-500">${dataBr}</p>
-        <p class="text-sm text-gray-500">Categoria: ${nomeCat}</p>
-        <p class="text-sm text-gray-500">Pagamento: ${expense.pagamento || "-"}</p>
-      </div>
-      <div class="flex gap-2">
-        <button class="edit-button-list">✏️</button>
-        <button class="delete-button-list">🗑️</button>
-      </div>
+        <div>${expense.descricao}</div>
+        <div>${formatCurrency(expense.valor)}</div>
+        <div>${dataBr}</div>
+        <div>${nomeCat}</div>
+        <div>${expense.pagamento || "-"}</div>
+        <div class="flex gap-2 justify-center">
+            <button class="edit-button-list">✏️</button>
+            <button class="delete-button-list">🗑️</button>
+        </div>
     `;
 
-        // Botão editar
-        const editBtn = li.querySelector(".edit-button-list");
-        editBtn.addEventListener("click", () => openEditExpense(expense));
-        editBtn.addEventListener("mousedown", e => e.preventDefault()); // ✅ impede roubar foco
-
-        // Botão deletar (direto, sem confirmar)
-        const deleteBtn = li.querySelector(".delete-button-list");
-        deleteBtn.addEventListener("click", async () => {
+        // Ações
+        li.querySelector(".edit-button-list").addEventListener("click", () => openEditExpense(expense));
+        li.querySelector(".delete-button-list").addEventListener("click", async () => {
             await fetch(`http://localhost:8080/api/despesas/${expense.id}`, { method: "DELETE" });
-
-            // ✅ garante que nenhum modal fique aberto
-            editModal.classList.remove("flex");
-            editModal.classList.add("hidden");
-
             loadExpenses();
         });
-        deleteBtn.addEventListener("mousedown", e => e.preventDefault()); // ✅ impede roubar foco
 
         return li;
     }
+
+
+
 
     function closeEditModal() {
         editModal.classList.remove("flex");
