@@ -1,0 +1,45 @@
+{
+  "name": "frontend-gastos",
+  "version": "1.0.0",
+  "description": "Controle de Gastos",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder --win"
+  },
+  "keywords": [],
+  "author": "Seu Nome",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^28.2.0",
+    "electron-builder": "^24.9.1"
+  },
+  "build": {
+    "appId": "com.seunome.appgastos",
+    "productName": "Controle de Gastos",
+    "win": {
+      "target": "nsis",
+      "icon": "assets/images/icon.ico"
+    },
+    "files": [
+      "**/*",
+      "!node_modules",
+      "node_modules/**/*"
+    ],
+    "extraResources": [
+      {
+        "from": "backend/",
+        "to": "backend"
+      },
+      {
+        "from": "jre/",
+        "to": "jre"
+      }
+    ]
+  },
+  "dependencies": {
+    "doodle.css": "^0.0.2",
+    "node-fetch": "^3.3.2",
+    "tree-kill": "^1.2.2"
+  }
+}
