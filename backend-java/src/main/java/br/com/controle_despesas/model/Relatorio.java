@@ -15,6 +15,7 @@ public class Relatorio {
     private String descricao;
     private BigDecimal valor;
     private LocalDate data;
-    private String tipo; 
-    private String nomeCategoria; 
+    private String tipo;
+    private String nomeCategoria;
+    private String pagamento; 
 }
