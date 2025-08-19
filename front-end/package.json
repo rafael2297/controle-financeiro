@@ -8,38 +8,61 @@
     "build": "electron-builder --win"
   },
   "keywords": [],
-  "author": "Seu Nome",
+  "author": "Rafael",
   "license": "ISC",
   "devDependencies": {
     "electron": "^28.2.0",
     "electron-builder": "^24.9.1"
   },
-  "build": {
-    "appId": "com.seunome.appgastos",
-    "productName": "Controle de Gastos",
-    "win": {
-      "target": "nsis",
-      "icon": "assets/images/icon.ico"
-    },
-    "files": [
-      "**/*",
-      "!node_modules",
-      "node_modules/**/*"
-    ],
-    "extraResources": [
-      {
-        "from": "backend/",
-        "to": "backend"
-      },
-      {
-        "from": "jre/",
-        "to": "jre"
-      }
-    ]
-  },
   "dependencies": {
     "doodle.css": "^0.0.2",
     "node-fetch": "^3.3.2",
     "tree-kill": "^1.2.2"
+  },
+  "build": {
+    "appId": "com.rafael.controlegastos",
+    "productName": "ControleGastos",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "pages/**/*",
+      "css/**/*",
+      "scripts/**/*",
+      "backend/**/*",
+      "jre/**/*",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "backend/",
+        "to": "backend/",
+        "filter": [
+          "**/*"
+        ]
+      },
+      {
+        "from": "jre/",
+        "to": "jre/",
+        "filter": [
+          "**/*"
+        ]
+      }
+    ],
+    "win": {
+      "target": [
+        "nsis",
+        "zip"
+      ],
+      "icon": "assets/images/icon.ico",
+      "publisherName": "Rafael Dev"
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": false
+    },
+    "copyright": "Copyright © 2025 Rafael"
   }
 }

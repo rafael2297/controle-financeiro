@@ -6,11 +6,22 @@ let backendProcess;
 let mainWindow;
 
 /**
- * Inicia o backend Spring Boot (arquivo JAR).
+ * Função para resolver paths no modo dev e no build (.exe).
+ */
+const getResourcePath = (relativePath) => {
+    if (app.isPackaged) {
+        return path.join(process.resourcesPath, relativePath);
+    } else {
+        return path.join(__dirname, relativePath);
+    }
+};
+
+/**
+ * Inicia o backend Spring Boot (arquivo JAR) usando o JRE empacotado.
  */
 function startBackend() {
-    const jarPath = path.join(__dirname, "backend", "controle-despesas-0.0.1-SNAPSHOT.jar");
-    const javaPath = path.join("C:", "Program Files", "Common Files", "Oracle", "Java", "javapath", "java.exe");
+    const jarPath = getResourcePath("backend/controle-despesas-0.0.1-SNAPSHOT.jar");
+    const javaPath = getResourcePath("jre/bin/java.exe");
 
     backendProcess = spawn(javaPath, ["-jar", jarPath], {
         cwd: path.dirname(jarPath),
