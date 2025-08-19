@@ -99,22 +99,11 @@ spring.jpa.hibernate.ddl-auto=create
 * ✅ Relatórios e histórico
 * ✅ App funciona como **.exe standalone**
 
----
-
-## 🖼️ Capturas de Tela *(exemplo)*
-
-### Tela Inicial
-![Tela Inicial](https://github.com/rafael2297/controle-financeiro/raw/main/front-end/assets/screenshots/home.png)
-
-### Tela de Relatório
-![Tela de Relatório](https://github.com/rafael2297/controle-financeiro/raw/main/front-end/assets/screenshots/relatorio.png)
-
----
-
 ## 👨‍💻 Autor
 
 Desenvolvido por **Rafael**
 📌 [GitHub](https://github.com/rafael2297)
+
 
 
 
