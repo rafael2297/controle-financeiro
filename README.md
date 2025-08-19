@@ -104,10 +104,10 @@ spring.jpa.hibernate.ddl-auto=create
 ## 🖼️ Capturas de Tela *(exemplo)*
 
 ### Tela Inicial
-![Tela Inicial](front-end/assets/screenshots/home.png)
+![Tela Inicial](https://github.com/rafael2297/controle-financeiro/raw/main/front-end/assets/screenshots/home.png)
 
 ### Tela de Relatório
-![Tela de Relatório](front-end/assets/screenshots/relatorio.png)
+![Tela de Relatório](https://github.com/rafael2297/controle-financeiro/raw/main/front-end/assets/screenshots/relatorio.png)
 
 ---
 
@@ -115,5 +115,6 @@ spring.jpa.hibernate.ddl-auto=create
 
 Desenvolvido por **Rafael**
 📌 [GitHub](https://github.com/rafael2297)
+
 
 
