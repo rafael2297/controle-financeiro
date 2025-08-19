@@ -7,8 +7,7 @@ public record ReceitaDTO(
         Integer id,
         String descricao,
         BigDecimal valor,
-        LocalDate data,
+        LocalDate dataReceita,
         Integer idCategoria,
-        String nomeCategoria,
-        String pagamento) {
+        String recebimento) {
 }

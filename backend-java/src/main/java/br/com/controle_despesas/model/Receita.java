@@ -5,41 +5,33 @@ import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
-@Table(name = "receitas")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Table(name = "tb_receitas")
+@Getter
+@Setter
 public class Receita {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_receita")
     private Long id;
 
-    @Column(nullable = false, precision = 15, scale = 2)
-    private BigDecimal valor;
-
-    @Column(nullable = false, length = 255)
     private String descricao;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "categoria_id", nullable = false)
-    private Categoria categoria;
+    private BigDecimal valor;
 
-    @Column(nullable = false)
-    private LocalDate data;
+    @Column(name = "data_receita")
+    private LocalDate dataReceita;
 
-    @Column(nullable = false, length = 20)
-    private String pagamento;
+    @Column(name = "id_categoria")
+    private Long idCategoria;
+
+    private String recebimento;
 }

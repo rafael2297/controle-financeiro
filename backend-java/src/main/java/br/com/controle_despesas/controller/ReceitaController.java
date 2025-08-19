@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.controle_despesas.DTO.ReceitaDTO;
+import br.com.controle_despesas.model.Receita;
 import br.com.controle_despesas.service.ReceitaService;
 
 @RestController
@@ -27,17 +27,17 @@ public class ReceitaController {
     }
 
     @GetMapping
-    public List<ReceitaDTO> listar() {
+    public List<Receita> listar() {
         return service.listarTodas();
     }
 
     @PostMapping
-    public ReceitaDTO adicionar(@RequestBody ReceitaDTO receita) {
+    public Receita adicionar(@RequestBody Receita receita) {
         return service.salvar(receita);
     }
 
     @PutMapping("/{id}")
-    public ReceitaDTO alterar(@PathVariable Long id, @RequestBody ReceitaDTO receita) {
+    public Receita alterar(@PathVariable Long id, @RequestBody Receita receita) {
         return service.atualizar(id, receita);
     }
 

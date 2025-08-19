@@ -21,7 +21,7 @@ public class Despesa {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_despesa")
-    private Long id; // 🔹 Alterado de Integer para Long
+    private Long id; 
 
     private String descricao;
 
@@ -31,7 +31,7 @@ public class Despesa {
     private LocalDate dataDespesa;
 
     @Column(name = "id_categoria")
-    private Long idCategoria; // 🔹 também melhor usar Long para bater com Categoria.id
+    private Long idCategoria; 
 
     private String pagamento;
 }

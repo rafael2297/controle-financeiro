@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const editAmount = document.getElementById("edit-income-amount");
     const editDate = document.getElementById("edit-income-date");
     const editCategoryInput = document.getElementById("edit-income-category");
+    const editPayment = document.getElementById("edit-income-payment"); // 👈 novo
 
     // --- MAPA DE CATEGORIAS ---
     const categoriesMap = new Map();
@@ -96,6 +97,7 @@ document.addEventListener("DOMContentLoaded", () => {
         editAmount.value = income.valor ?? "";
         editDate.value = toInputDate(income.dataReceita);
         editCategoryInput.value = income.idCategoria ?? "";
+        editPayment.value = income.recebimento ?? ""; // 👈 novo
 
         editModal.classList.add("flex");
         editModal.classList.remove("hidden");
@@ -131,6 +133,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     <div class="income-value">${formatCurrency(inc.valor)}</div>
                     <div>${dataBr}</div>
                     <div>${nomeCat}</div>
+                    <div>${inc.recebimento ?? "Não informado"}</div> <!-- 👈 mostrar -->
                     <div class="flex gap-2 justify-center">
                         <button class="edit-button-list">✏️</button>
                         <button class="delete-button-list">🗑️</button>
@@ -162,7 +165,8 @@ document.addEventListener("DOMContentLoaded", () => {
             descricao: editDescription.value,
             valor: parseFloat(editAmount.value),
             dataReceita: editDate.value,
-            idCategoria: parseInt(editCategoryInput.value)
+            idCategoria: parseInt(editCategoryInput.value),
+            recebimento: editPayment.value // 👈 novo
         };
 
         try {
@@ -192,6 +196,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const amount = parseFloat(document.getElementById("income-amount").value);
         const date = document.getElementById("income-date").value;
         const categoryId = parseInt(createCategory.value);
+        const payment = document.getElementById("income-payment").value; // 👈 novo
 
         if (!categoryId || Number.isNaN(categoryId)) {
             alert("Por favor, selecione uma categoria.");
@@ -202,7 +207,8 @@ document.addEventListener("DOMContentLoaded", () => {
             descricao: description,
             valor: amount,
             dataReceita: date,
-            idCategoria: categoryId
+            idCategoria: categoryId,
+            recebimento: payment // 👈 novo
         };
 
         try {
