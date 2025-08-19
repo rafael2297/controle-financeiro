@@ -1,16 +1,17 @@
 package br.com.controle_despesas.service;
 
-import java.math.BigDecimal;
-import java.sql.Date;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import br.com.controle_despesas.model.Despesa;
+import br.com.controle_despesas.model.Receita;
 import br.com.controle_despesas.model.Relatorio;
+import br.com.controle_despesas.repository.CategoriaRepository;
 import br.com.controle_despesas.repository.DespesaRepository;
+import br.com.controle_despesas.repository.ReceitaRepository;
 import br.com.controle_despesas.util.RelatorioExcelExporter;
 import lombok.RequiredArgsConstructor;
 
@@ -18,29 +19,54 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class RelatorioService {
 
+    private final ReceitaRepository receitaRepository;
     private final DespesaRepository despesaRepository;
+    private final CategoriaRepository categoriaRepository;
 
-    public void gerarExcel() {
-        List<Object[]> resultados = despesaRepository.gerarRelatorioBruto();
+    /**
+     * Monta a lista de relatórios (Receitas + Despesas)
+     */
+    public List<Relatorio> gerarRelatorio() {
         List<Relatorio> relatorios = new ArrayList<>();
 
-        for (Object[] linha : resultados) {
-            Relatorio r = new Relatorio();
-            r.setId(((Number) linha[0]).intValue());
-            r.setValor((BigDecimal) linha[1]);
-            r.setData((Date) linha[2]);
-            r.setDescricao((String) linha[3]);
-            r.setIdCategoria(((Number) linha[4]).intValue());
-            r.setNomeCategoria((String) linha[5]);
-            r.setPagamento((String) linha[6]);
-            relatorios.add(r);
+        // RECEITAS
+        List<Receita> receitas = receitaRepository.findAll();
+        for (Receita r : receitas) {
+            String nomeCategoria = categoriaRepository.findById(r.getIdCategoria())
+                    .map(c -> c.getNome())
+                    .orElse("");
+
+            relatorios.add(new Relatorio(
+                    r.getDescricao(),
+                    r.getValor(),
+                    r.getDataReceita(),
+                    "Receita",
+                    nomeCategoria));
         }
 
-        String nomeArquivo = "relatorio_" +
-                LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm")) +
-                ".xlsx";
+        // DESPESAS
+        List<Despesa> despesas = despesaRepository.findAll();
+        for (Despesa d : despesas) {
+            String nomeCategoria = categoriaRepository.findById(d.getIdCategoria())
+                    .map(c -> c.getNome())
+                    .orElse("");
 
-        // Gera o arquivo no diretório atual
-        RelatorioExcelExporter.exportarParaExcel(relatorios, nomeArquivo);
+            relatorios.add(new Relatorio(
+                    d.getDescricao(),
+                    d.getValor().negate(), // transforma em negativo
+                    d.getDataDespesa(),
+                    "Despesa",
+                    nomeCategoria));
+        }
+
+        return relatorios;
+    }
+
+    /**
+     * Exporta o relatório em Excel
+     */
+    public ByteArrayInputStream gerarExcel() {
+        List<Relatorio> relatorios = gerarRelatorio();
+        return RelatorioExcelExporter.exportarParaExcel(relatorios);
     }
 }
