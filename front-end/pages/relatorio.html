@@ -2,22 +2,27 @@
 <html lang="pt-BR">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Relatórios</title>
-    <link rel="stylesheet" href="../css/styles.css">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/styles.css" />
+    <link rel="stylesheet" href="../css/relatorio.css" />
+
+    <!-- Scripts (Chart primeiro, depois seu JS) -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
     <script src="../scripts/relatorio.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body class="doodle-body flex items-center justify-center min-h-screen">
 
     <!-- Navegação principal -->
     <nav class="navbar">
-        <a href="home.html" class="nav-button active">Início</a>
+        <a href="home.html" class="nav-button">Início</a>
         <a href="despesas.html" class="nav-button">Despesas</a>
         <a href="receita.html" class="nav-button">Receitas</a>
-        <a href="relatorio.html" class="nav-button">Relatórios</a>
+        <a href="relatorio.html" class="nav-button active">Relatórios</a>
         <a href="categorias.html" class="nav-button">Categorias</a>
     </nav>
 
@@ -29,6 +34,26 @@
             <h1 class="doodle-title">📊 Relatórios Financeiros</h1>
             <p class="doodle-subtitle">Visualize o resumo de suas despesas e receitas.</p>
         </header>
+
+        <!-- Filtro por Período -->
+        <div class="filter-box">
+            <label for="start-date">Data Inicial:</label>
+            <input type="date" id="start-date" class="doodle-input" />
+
+            <label for="end-date">Data Final:</label>
+            <input type="date" id="end-date" class="doodle-input" />
+
+            <button id="filter-report" class="doodle-button">Filtrar</button>
+            <button id="clear-filter" class="doodle-button">Limpar</button>
+        </div>
+
+        <!-- Filtro por Categoria -->
+        <div class="filter-box">
+            <label for="filter-category">Categoria:</label>
+            <select id="filter-category" class="doodle-input">
+                <option value="">Todas</option>
+            </select>
+        </div>
 
         <!-- Resumo -->
         <div class="doodle-box mb-6">
@@ -49,31 +74,39 @@
             </div>
         </div>
 
-        <!-- Gráficos -->
-        <div class="doodle-box mb-6">
-            <h2 class="doodle-section-title">Gráficos</h2>
-            <div class="mt-4">
-                <!-- Pizza ou barras -->
-                <canvas id="report-chart" class="w-full max-h-96"></canvas>
+        <!-- Gráfico de Pizza centralizado -->
+        <div class="doodle-box mb-6 flex justify-center">
+            <div class="flex flex-col items-center">
+                <h2 class="doodle-section-title">Gráficos</h2>
+                <!-- Tamanho controlado por width/height e CSS -->
+                <canvas id="report-chart" width="300" height="300"></canvas>
             </div>
         </div>
-
-        <!-- Histórico -->
+        <!-- Histórico: gráfico de linha à esquerda e lista à direita -->
         <div class="doodle-box">
             <h2 class="doodle-section-title">Histórico</h2>
 
-            <!-- Novo gráfico de linha -->
-            <div class="mt-4">
-                <canvas id="history-chart" class="w-full max-h-96"></canvas>
-            </div>
+            <div class="history-container">
+                <!-- Caixa do gráfico -->
+                <div class="history-chart-box">
+                    <canvas id="history-chart" width="600" height="300"></canvas>
+                </div>
 
-            <!-- Histórico detalhado -->
-            <div id="report-history" class="mt-6 space-y-3">
-                <!-- Histórico de transações será adicionado via JS -->
+                <!-- Lista ao lado direito com cabeçalho e cards -->
+                <div class="history-list">
+                    <!-- Cabeçalho das colunas -->
+                    <div class="history-columns">
+                        <div>Descrição</div>
+                        <div>Valor</div>
+                        <div>Data</div>
+                        <div>Tipo</div>
+                    </div>
+
+                    <!-- Itens adicionados via JS -->
+                    <div id="report-history"></div>
+                </div>
             </div>
         </div>
-
-    </div>
 
 </body>
 
