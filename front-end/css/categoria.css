@@ -1,130 +1,37 @@
 @import url("./styles.css");
 
-/* Estilo para a página de Despesas */
+/* container principal */
 #main-app {
     background: #fffef8;
-
 }
 
-#form-mode-buttons {
+/* header */
+.category-header {
     display: flex;
-    gap: 10px;
-    margin-bottom: 12px;
-    
+    justify-content: space-between;
+    align-items: center;
 }
 
-#form-mode-buttons button {
-    flex: 1;
-    font-size: 0.9rem;
-}
-
-#expense-list li {
-    border: 2px dashed #000;
-    border-radius: 8px;
-    padding: 10px;
-    background: #fafafa;
-    box-shadow: 3px 3px 0px #000;
-}
-
-/* Estilo para cada item da lista (card) */
-.doodle-card {
-    background-color: #f9fafb;
-    /* um cinza claro para o fundo */
-    border: 1px solid #e5e7eb;
-    border-radius: 0.75rem;
-    /* Bordas arredondadas */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.03);
-    /* Sombra sutil */
-}
-
-/* Estilos para os botões dentro do card */
-.edit-button-list,
-.delete-button-list {
-    background-color: transparent;
-    /* Fundo transparente */
-    border: none;
-    color: #4b5563;
-    /* Cor do ícone */
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
-}
-
-.edit-button-list:hover {
-    color: #4f46e5;
-    /* Cor roxa no hover */
-    transform: scale(1.1);
-    /* Efeito de zoom */
-}
-
-.delete-button-list:hover {
-    color: #ef4444;
-    /* Cor vermelha no hover */
-    transform: scale(1.1);
-}
-
-/* estilo dos cards das categorias */
+/* lista de categorias */
 #category-list li.category-card {
     border: 2px solid black;
     border-radius: 10px;
-    padding: 1rem;
+    padding: 0.75rem 1rem;
     background: white;
     display: flex;
     justify-content: space-between;
     align-items: center;
+
     transition: background 0.2s ease, transform 0.2s ease;
-    cursor: pointer;
-    
+    margin-bottom: 10px;
 }
 
-#category-list li:not(:last-child) {
-    margin-bottom: 1rem;
-}
-
-
-/* hover mais bonitinho */
 #category-list li.category-card:hover {
     background: #f5f5f5;
     transform: scale(1.02);
 }
 
-/* 1) Voltar a borda preta do card principal */
-.doodle-card {
-    background: #fffef8;
-    border: 2px solid #000;
-    /* <- borda preta */
-    border-radius: 12px;
-    box-shadow: 5px 5px 0 #000;
-    padding: 20px;
-}
-
-/* 2) Borda preta no bloco "Adicionar Nova Categoria" */
-.doodle-card>.bg-gray-50 {
-    background: #fffef8;
-    /* opcional, combina com o resto */
-    /* <- borda preta */
-    border-radius: 12px;
-
-    padding: 1.5rem;
-    /* garante espaçamento */
-}
-
-/* Botões de ação dentro do card */
-.category-card {
-    border: 2px solid black;
-    border-radius: 10px;
-    padding: 1rem;
-    background: white;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    transition: background 0.2s ease, transform 0.2s ease;
-}
-
-.category-card:hover {
-    background: #f5f5f5;
-    transform: scale(1.02);
-}
-
+/* botões da lista */
 .edit-button-list,
 .delete-button-list {
     background: transparent;
@@ -144,42 +51,32 @@
     transform: scale(1.2);
 }
 
-#edit-category-modal .bg-white {
-    border: 2px solid black;
-    border-radius: 10px;
-    box-shadow: 6px 6px 0px black;
-}
-
-/* Overlay do modal */
+/* Modal */
 .modal-overlay {
     position: fixed;
     inset: 0;
     background: rgba(0, 0, 0, .4);
     display: none;
-    /* começa escondido */
     align-items: center;
     justify-content: center;
     z-index: 9999;
-    /* acima de tudo */
 }
 
-/* Quando abrir o modal */
 .modal-overlay.open {
     display: flex;
 }
 
-/* Cartão do modal */
 .modal-card {
-    background: #fff;
+    background: #fffef8;
     border: 2px solid #000;
     border-radius: 12px;
     box-shadow: 6px 6px 0 #000;
-    width: min(100%, 480px);
+    width: min(100%, 420px);
     padding: 24px;
     position: relative;
+
 }
 
-/* Botão X */
 .modal-close {
     position: absolute;
     top: 8px;
@@ -187,27 +84,29 @@
     background: transparent;
     border: none;
     font-size: 20px;
-    font-weight: 700;
     cursor: pointer;
-    color: #333;
 }
 
 .modal-close:hover {
     color: #000;
 }
 
-.category-header {
-    display: flex;
-    justify-content: space-between;
-    /* joga os itens para extremos */
-    align-items: center;
-    margin-bottom: 0.75rem;
+/* Input de nome da categoria */
+#category-name {
+    border: 2px solid black;
+    border-radius: 8px;
+    padding: 0.6rem 1rem;
+    background: #fffef8;
+    /* igual aos cards */
+    font-size: 1rem;
+    box-shadow: 3px 3px 0px #000;
+    transition: all 0.2s ease-in-out;
 }
 
-#refresh-categories {
-    margin-left: auto;
-    /* empurra para a direita */
-    margin-right: 8px;
-    /* dá uma folguinha da borda */
-    font-size: 1.2rem;
+#category-name:focus {
+    outline: none;
+    border-color: #4f46e5;
+    /* roxo do hover do botão */
+    box-shadow: 4px 4px 0px #000;
+    background: #ffffff;
 }
