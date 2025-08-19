@@ -169,8 +169,8 @@ body {
     box-shadow: inset 2px 2px 0px #000;
 }
 
-/* ------------------- */
-/* BOTÕES DE AÇÃO      */
-/* ------------------- */
+h1,h2,p{
+    text-align: center;
+}
 
 

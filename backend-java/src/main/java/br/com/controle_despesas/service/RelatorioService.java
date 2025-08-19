@@ -1,6 +1,7 @@
 package br.com.controle_despesas.service;
 
 import java.io.ByteArrayInputStream;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,13 +22,16 @@ public class RelatorioService {
     private final ReceitaRepository receitaRepository;
     private final DespesaRepository despesaRepository;
     private final CategoriaRepository categoriaRepository;
+    private final SaldoService saldoService;
 
     public RelatorioService(ReceitaRepository receitaRepository,
             DespesaRepository despesaRepository,
-            CategoriaRepository categoriaRepository) {
+            CategoriaRepository categoriaRepository,
+            SaldoService saldoService) {
         this.receitaRepository = receitaRepository;
         this.despesaRepository = despesaRepository;
         this.categoriaRepository = categoriaRepository;
+        this.saldoService = saldoService; 
     }
 
     public List<Relatorio> gerarRelatorio() {
@@ -77,7 +81,8 @@ public class RelatorioService {
     public ByteArrayInputStream gerarExcel() {
         try {
             List<Relatorio> relatorios = gerarRelatorio();
-            return RelatorioExcelExporter.exportarParaExcel(relatorios);
+            BigDecimal saldoFinalBanco = saldoService.buscarSaldoAtual();
+            return RelatorioExcelExporter.exportarParaExcel(relatorios, saldoFinalBanco);
         } catch (Exception e) {
             throw new RuntimeException("Erro ao gerar relatório em Excel: " + e.getMessage(), e);
         }

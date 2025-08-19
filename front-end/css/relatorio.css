@@ -1,45 +1,244 @@
 /* ==================== */
+/* Espaçamento entre blocos doodle */
+/* ==================== */
+.doodle-box+.doodle-box {
+    margin-top: 1.25rem;
+}
+
+/* ==================== */
+/* Resumo + Gráfico */
+/* ==================== */
+.summary-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1.5rem;
+    align-items: start;
+}
+
+.summary-cards-vertical {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.summary-card {
+    border: 2px solid black;
+    border-radius: 14px;
+    padding: 2rem;
+    background: white;
+    text-align: center;
+    box-shadow: 4px 4px 0px black;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.summary-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 6px 6px 0px black;
+}
+
+.summary-card h3 {
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+.summary-card p {
+    font-size: 2.2rem;
+    font-weight: bold;
+    margin: 0;
+}
+
+/* Cores específicas */
+.summary-card.income {
+    background: #ecfdf5;
+    border-color: #16a34a;
+}
+
+.summary-card.income p {
+    color: #16a34a;
+}
+
+.summary-card.expense {
+    background: #fef2f2;
+    border-color: #dc2626;
+}
+
+.summary-card.expense p {
+    color: #dc2626;
+}
+
+.summary-card.balance {
+    background: #eff6ff;
+    border-color: #2563eb;
+}
+
+.summary-card.balance p {
+    color: #2563eb;
+}
+
+/* Gráfico de pizza ao lado */
+.summary-chart {
+    border: 2px solid black;
+    border-radius: 12px;
+    padding: 1rem;
+    background: white;
+    box-shadow: 2px 2px 0px black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (max-width: 900px) {
+    .summary-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ==================== */
+/* Filtros */
+/* ==================== */
+.filter-box {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    background: white;
+    border: 2px solid black;
+    border-radius: 12px;
+    padding: 0.5rem 0.75rem;
+    margin-bottom: 1rem;
+    box-shadow: 2px 2px 0px black;
+}
+
+
+.filter-field {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    margin-right: 0.5rem;
+    flex: 0 0 auto;
+}
+
+.filter-box label {
+    font-weight: 600;
+    margin: 0;
+}
+
+.filter-box .doodle-input,
+.filter-box select,
+.filter-box input[type="date"] {
+    min-width: 110px;
+    padding: 0.35rem 0.5rem;
+    font-size: 0.9rem;
+}
+
+.filter-actions {
+    margin-left: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex: 0 0 auto;
+}
+
+.filter-actions .doodle-button {
+    padding: 0.4rem 0.75rem;
+    font-weight: 700;
+}
+
+/* 🔹 Botão Exportar Excel */
+#export-excel {
+    background: #22c55e;
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 0.4rem 0.75rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 2px 2px 0px black;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    color: white;
+}
+
+#export-excel:hover {
+    transform: translateY(-2px);
+    box-shadow: 4px 4px 0px black;
+    background: #16a34a;
+}
+
+/* ==================== */
 /* Histórico */
 /* ==================== */
-
 .history-container {
     display: grid;
     grid-template-columns: 2fr 1fr;
-    /* gráfico 2/3, lista 1/3 */
-    gap: 1rem;
+    gap: 1.5rem;
     align-items: flex-start;
 }
 
-/* Caixa do gráfico */
 .history-chart-box {
     display: flex;
     justify-content: center;
     align-items: center;
     max-height: 400px;
+    padding: 1rem;
+    background: white;
+    border: 2px solid black;
+    border-radius: 12px;
+    box-shadow: 2px 2px 0px black;
+    overflow: hidden;
 }
 
-/* Canvas do gráfico */
 .history-chart-box canvas {
     max-width: 100%;
     width: 100% !important;
     height: auto !important;
-    max-height: 400px;
+    max-height: 350px;
 }
 
-/* Lista do histórico */
 .history-list {
     max-height: 400px;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
     overflow-y: auto;
-    padding-right: 0.5rem;
+    overflow-x: hidden;
+    background: white;
+    border: 2px solid black;
+    border-radius: 12px;
+    box-shadow: 2px 2px 0px black;
+    padding: 0.75rem;
+    width: 100%;
+    box-sizing: border-box;
 }
 
-/* Cabeçalho das colunas */
+/* 🔹 Corrige o vazamento do conteúdo do histórico */
+#report-history {
+    width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+
+#report-history .history-card {
+    width: 100%;
+    box-sizing: border-box;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 0.5rem;
+
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 0.75rem;
+    background: white;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
 .history-columns {
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     text-align: center;
     font-weight: bold;
     border: 2px solid black;
@@ -47,46 +246,81 @@
     padding: 0.5rem;
     background: #f9f9f9;
     margin-bottom: 0.5rem;
-}
-
-/* Cards do histórico */
-.history-card {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr;
-    align-items: center;
-    text-align: center;
-    gap: 0.5rem;
-
-    border: 2px solid black;
-    border-radius: 10px;
-    padding: 0.75rem;
-    background: white;
+    width: 100%;
     box-sizing: border-box;
-    box-shadow: 2px 2px 0px black;
-    margin-bottom: 0.5rem;
-    font-size: 0.9rem;
-    font-weight: 500;
 }
 
 .history-card .valor {
     font-weight: bold;
 }
 
-/* Scrollbar estilizada */
+/* Scrollbar */
+.filter-box::-webkit-scrollbar,
 .history-list::-webkit-scrollbar {
+    height: 8px;
     width: 8px;
 }
 
+.filter-box::-webkit-scrollbar-track,
 .history-list::-webkit-scrollbar-track {
     background: #eee;
     border-radius: 4px;
 }
 
+.filter-box::-webkit-scrollbar-thumb,
 .history-list::-webkit-scrollbar-thumb {
     background: #888;
     border-radius: 4px;
 }
 
+.filter-box::-webkit-scrollbar-thumb:hover,
 .history-list::-webkit-scrollbar-thumb:hover {
     background: #555;
+}
+
+h1,
+h2,
+p {
+    text-align: center;
+}
+
+/* ==================== */
+/* Responsividade */
+/* ==================== */
+@media (max-width: 900px) {
+    .history-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 700px) {
+
+    .history-columns,
+    .history-card {
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 450px) {
+
+    .history-columns,
+    .history-card {
+        grid-template-columns: 1fr;
+        text-align: left;
+    }
+
+    .history-columns div {
+        font-weight: bold;
+        border-bottom: 1px solid #ddd;
+        padding: 0.25rem 0;
+    }
+}
+
+@media (max-width: 600px) {
+    .filter-actions {
+        width: 100%;
+        justify-content: flex-end;
+        margin-left: 0;
+        margin-top: 0.5rem;
+    }
 }

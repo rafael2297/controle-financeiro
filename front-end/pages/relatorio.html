@@ -35,78 +35,98 @@
             <p class="doodle-subtitle">Visualize o resumo de suas despesas e receitas.</p>
         </header>
 
-        <!-- Filtro por Período -->
-        <div class="filter-box">
-            <label for="start-date">Data Inicial:</label>
-            <input type="date" id="start-date" class="doodle-input" />
 
-            <label for="end-date">Data Final:</label>
-            <input type="date" id="end-date" class="doodle-input" />
-
-            <button id="filter-report" class="doodle-button">Filtrar</button>
-            <button id="clear-filter" class="doodle-button">Limpar</button>
-        </div>
-
-        <!-- Filtro por Categoria -->
-        <div class="filter-box">
-            <label for="filter-category">Categoria:</label>
-            <select id="filter-category" class="doodle-input">
-                <option value="">Todas</option>
-            </select>
-        </div>
-
-        <!-- Resumo -->
+        <!-- Resumo + Gráfico lado a lado -->
         <div class="doodle-box mb-6">
             <h2 class="doodle-section-title">Resumo Geral</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-4 text-center">
-                <div class="p-4 border-2 border-black rounded-lg">
-                    <h3 class="font-bold">Total de Receitas</h3>
-                    <p id="total-incomes" class="text-green-600 text-xl font-extrabold mt-2">R$ 0,00</p>
-                </div>
-                <div class="p-4 border-2 border-black rounded-lg">
-                    <h3 class="font-bold">Total de Despesas</h3>
-                    <p id="total-expenses" class="text-red-600 text-xl font-extrabold mt-2">R$ 0,00</p>
-                </div>
-                <div class="p-4 border-2 border-black rounded-lg">
-                    <h3 class="font-bold">Saldo</h3>
-                    <p id="balance" class="text-blue-600 text-xl font-extrabold mt-2">R$ 0,00</p>
-                </div>
-            </div>
-        </div>
 
-        <!-- Gráfico de Pizza centralizado -->
-        <div class="doodle-box mb-6 flex justify-center">
-            <div class="flex flex-col items-center">
-                <h2 class="doodle-section-title">Gráficos</h2>
-                <!-- Tamanho controlado por width/height e CSS -->
-                <canvas id="report-chart" width="300" height="300"></canvas>
+            <div class="summary-grid">
+                <!-- Cards de resumo -->
+                <div class="summary-cards-vertical">
+                    <div class="summary-card income">
+                        <h3>Total de Receitas</h3>
+                        <p id="total-incomes">R$ 0,00</p>
+                    </div>
+                    <div class="summary-card expense">
+                        <h3>Total de Despesas</h3>
+                        <p id="total-expenses">R$ 0,00</p>
+                    </div>
+                    <div class="summary-card balance">
+                        <h3>Saldo</h3>
+                        <p id="balance">R$ 0,00</p>
+                    </div>
+                </div>
+
+
+
+                <!-- Gráfico de pizza -->
+                <div class="summary-chart">
+                    <h3 class="font-bold text-center mb-2">Receitas x Despesas</h3>
+                    <canvas id="report-chart" width="280" height="280"></canvas>
+                </div>
             </div>
         </div>
-        <!-- Histórico: gráfico de linha à esquerda e lista à direita -->
+        <!-- Histórico -->
         <div class="doodle-box">
             <h2 class="doodle-section-title">Histórico</h2>
 
+            <!-- Caixa de filtros -->
+            <div class="filter-box">
+                <div class="filter-field">
+                    <label for="start-date">Data Inicial:</label>
+                    <input type="date" id="start-date" class="doodle-input">
+                </div>
+                <div class="filter-field">
+                    <label for="end-date">Data Final:</label>
+                    <input type="date" id="end-date" class="doodle-input">
+                </div>
+                <div class="filter-field">
+                    <label for="filter-category">Categoria:</label>
+                    <select id="filter-category" class="doodle-input">
+                        <option value="">Todas</option>
+                    </select>
+                </div>
+                <div class="filter-field">
+                    <label for="filter-type">Tipo:</label>
+                    <select id="filter-type" class="doodle-input">
+                        <option value="">Todos</option>
+                        <option value="receita">Receitas</option>
+                        <option value="despesa">Despesas</option>
+                    </select>
+                </div>
+                <div class="filter-actions">
+                    <button id="filter-report" class="doodle-button">Filtrar</button>
+                    <button id="clear-filter" class="doodle-button">Limpar</button>
+                    <button id="export-excel">Exportar Excel</button>
+                </div>
+            </div>
+
+
+            <!-- Conteúdo do histórico -->
             <div class="history-container">
-                <!-- Caixa do gráfico -->
-                <div class="history-chart-box">
-                    <canvas id="history-chart" width="600" height="300"></canvas>
+                <!-- Gráfico -->
+                <div class="history-chart-box doodle-subbox">
+                    <canvas id="history-chart" "></canvas>
                 </div>
 
-                <!-- Lista ao lado direito com cabeçalho e cards -->
-                <div class="history-list">
-                    <!-- Cabeçalho das colunas -->
-                    <div class="history-columns">
-                        <div>Descrição</div>
-                        <div>Valor</div>
-                        <div>Data</div>
-                        <div>Tipo</div>
-                    </div>
+                <!-- Lista -->
+                <div class=" history-list doodle-subbox">
+                        <!-- Cabeçalho -->
+                        <div class="history-columns">
+                            <div>Descrição</div>
+                            <div>Valor</div>
+                            <div>Data</div>
+                            <div>Tipo</div>
+                        </div>
 
-                    <!-- Itens adicionados via JS -->
-                    <div id="report-history"></div>
+                        <!-- Itens via JS -->
+                        <div id="report-history"></div>
                 </div>
             </div>
         </div>
+
+
+
 
 </body>
 
